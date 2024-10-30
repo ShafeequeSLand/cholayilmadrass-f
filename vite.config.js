@@ -1,6 +1,10 @@
-// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+
+// Define backend URLs for different environments
+const backendUrl = process.env.NODE_ENV === 'production'
+  ? 'https://cholayilmadrassa-be.onrender.com'
+  : 'http://localhost:8000';
 
 export default defineConfig({
   plugins: [react()],
@@ -9,10 +13,9 @@ export default defineConfig({
     port: 5000,
     proxy: {
       '/api': {
-        // target: 'https://umsbackend.farado.store', // Uncomment for production
-        // target: 'http://localhost:8000', // Uncomment for local development
+        target: backendUrl,
         changeOrigin: true,
-        secure: false, // Set to true if your backend uses HTTPS with a valid certificate
+        secure: process.env.NODE_ENV === 'production', // Only secure in production
       },
     },
   },

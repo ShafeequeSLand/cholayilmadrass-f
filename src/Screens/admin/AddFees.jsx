@@ -4,13 +4,14 @@ import { useLocation } from "react-router-dom";
 import Header from "../../components/Header";
 import Modal from "react-modal";
 import { useAddFeesMutation, useGetFeesDataMutation } from "../../slices/adminApiSlice";
-
+import { BarLoader } from "react-spinners";
 // Custom styles for the modal
 Modal.setAppElement("#root");
 
 function AddFees() {
   const { state } = useLocation();
   const [entries, setEntries] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [id, setId] = useState(state?.item || ''); // Set initial value from state
   const [newFee, setNewFee] = useState({
@@ -36,6 +37,7 @@ function AddFees() {
     setId(state?.item);
     if (id) {
       async function getFees() {
+        setLoading(true)
         try {
           const res = await getFeesData(id).unwrap();
           setEntries(res.data.feesData);
@@ -43,6 +45,7 @@ function AddFees() {
             ...prev,
             id: id,
           }));
+          setLoading(false)
         } catch (error) {
           console.error("Error fetching fees data:", error);
         }
@@ -93,6 +96,10 @@ function AddFees() {
   return (
     <>
       {userInfo && <Header />}
+      {loading ?(
+        <div className="w-[100vw] h-[100vh] flex justify-center items-center  ">
+          <BarLoader />
+        </div>):(
       <div className="overflow-hidden flex items-start justify-center h-[100vh]" style={{ background: "#edf2f7" }}>
         <div className="max-w-5xl w-full mt-10 mb-10 p-5 bg-white rounded-xl">
           <div className="text-center">
@@ -135,7 +142,7 @@ function AddFees() {
           </div>
         </div>
       </div>
-
+)}
       {/* Modal for adding new fee */}
       <Modal
         isOpen={modalIsOpen}
