@@ -112,12 +112,12 @@ function AddFees() {
             <table className="min-w-full bg-white border mb-10 border-gray-300">
               <thead>
                 <tr>
-                  <th className="border border-gray-300 px-4 py-2">Date</th>
-                  <th className="border border-gray-300 px-4 py-2">Month</th>
-                  <th className="border border-gray-300 px-4 py-2">Amount</th>
-                  <th className="border border-gray-300 px-4 py-2">Rec.No</th>
-                  <th className="border border-gray-300 px-4 py-2">Parent Verified</th>
-                  <th className="border border-gray-300 px-4 py-2">Swadar Verified</th>
+                  <th className="border border-gray-300 px-1 py-1">Date</th>
+                  <th className="border border-gray-300 px-1 py-1">Month</th>
+                  <th className="border border-gray-300 px-1 py-1">Amount</th>
+                  <th className="border border-gray-300 px-1 py-1">Rec.No</th>
+                  <th className="border border-gray-300 px-1 py-1">Parent Verified</th>
+                  <th className="border border-gray-300 px-1 py-1">Swadar Verified</th>
                 </tr>
               </thead>
               <tbody>

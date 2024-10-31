@@ -70,7 +70,7 @@ function FeesTable() {
           <BarLoader />
         </div>):(
     
-      <div className="overflow-hidden flex items-start justify-center h-[100vh]" style={{ background: "#edf2f7" }}>
+      <div className="overflow-hidden flex items-start justify-center  min-h-[100vh]" style={{ background: "#edf2f7" }}>
         <div className="max-w-5xl w-full mt-10 mb-10 p-5 bg-white rounded-xl">
           <div className="text-center">
             <h2 className="mt-6 text-3xl font-bold text-gray-900">Records Table</h2>
@@ -79,12 +79,12 @@ function FeesTable() {
             <table className="min-w-full bg-white border mb-10 border-gray-300">
               <thead>
                 <tr>
-                  <th className="border border-gray-300 px-4 py-2">Date</th>
-                  <th className="border border-gray-300 px-4 py-2">Month</th>
-                  <th className="border border-gray-300 px-4 py-2">Amount</th>
-                  <th className="border border-gray-300 px-4 py-2">Rec.No	</th>
-                  <th className="border border-gray-300 px-4 py-2">Parent Verified</th>
-                  <th className="border border-gray-300 px-4 py-2">Swadar Verified</th>
+                  <th className="border border-gray-300 px-1 py-1">Date</th>
+                  <th className="border border-gray-300 px-1 py-1">Month</th>
+                  <th className="border border-gray-300 px-1 py-1">Amount</th>
+                  <th className="border border-gray-300 px-1 py-1">Rec.No	</th>
+                  <th className="border border-gray-300 px-1 py-1">Parent Verified</th>
+                  <th className="border border-gray-300 px-1 py-1">Swadar Verified</th>
                 </tr>
               </thead>
               <tbody>
