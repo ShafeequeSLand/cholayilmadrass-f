@@ -27,8 +27,8 @@ function AddFees() {
   const [errors, setErrors] = useState({});
   const { adminInfo } = useSelector((state) => state.auth);
 
-  const Verified = <img className="h-auto w-24" src="/verified.png" alt="" />;
-  const Pending = <img className="h-auto w-24" src="/pending.png" alt="" />;
+  const Verified = <img className="h-auto w-28" src="/verified.png" alt="" />;
+  const Pending = <img className="h-auto w-28" src="/pending.png" alt="" />;
 
   // Initialize mutation hooks
   const [addFees] = useAddFeesMutation();
@@ -106,6 +106,11 @@ function AddFees() {
       console.error("Error adding new fee:", error);
     }
   };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
 
   return (
     <>
@@ -120,36 +125,40 @@ function AddFees() {
             <h2 className="mt-6 text-3xl font-bold text-gray-900">Records Table</h2>
           </div>
           <div className="mt-8 overflow-x-auto">
-            <table className="min-w-full bg-white border mb-10 border-gray-300">
-              <thead>
-                <tr>
-                  <th className="border border-gray-300 px-1 py-1">Date</th>
-                  <th className="border border-gray-300 px-1 py-1">Month</th>
-                  <th className="border border-gray-300 px-1 py-1">Amount</th>
-                  <th className="border border-gray-300 px-1 py-1">Rec.No</th>
-                  <th className="border border-gray-300 px-1 py-1">Parent Verified</th>
-                  <th className="border border-gray-300 px-1 py-1">Swadar Verified</th>
-                </tr>
-              </thead>
-              <tbody>
-                {entries.length > 0 ? (
-                  entries.map((entry, index) => (
-                    <tr key={index} className="hover:bg-gray-100 text-center">
-                      <td className="border border-gray-300 px-4 py-2">{entry.date}</td>
-                      <td className="border border-gray-300 px-4 py-2">{entry.month}</td>
-                      <td className="border border-gray-300 px-4 py-2">{entry.amount}</td>
-                      <td className="border border-gray-300 px-4 py-2">{entry.receiptNo}</td>
-                      <td className="border border-gray-300 text-center px-4 py-2">{entry.parentVerified ? Verified : Pending}</td>
-                      <td className="border border-gray-300 text-center px-4 py-2">{entry.swadarVerified ? Verified : Pending}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="6" className="border border-gray-300 px-4 py-2 text-center">No records found</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+          <table className="min-w-full bg-white border mb-10 border-gray-300">
+      <thead>
+        <tr>
+          <th className="border border-gray-300 px-1 py-1 w-1/6">Date</th>
+          <th className="border border-gray-300 px-1 py-1 w-1/6">Month</th>
+          <th className="border border-gray-300 px-1 py-1 w-1/6">Amount</th>
+          <th className="border border-gray-300 px-1 py-1 w-1/6">Rec.No</th>
+          <th className="border border-gray-300 px-1 py-1 w-1/6">Parent Verified</th>
+          <th className="border border-gray-300 px-1 py-1 w-1/6">Swadar Verified</th>
+        </tr>
+      </thead>
+      <tbody>
+        {entries.length > 0 ? (
+          entries.map((entry, index) => (
+            <tr key={index} className="hover:bg-gray-100 text-center">
+              <td className="border border-gray-300 px-4 py-2">{formatDate(entry.date)}</td>
+              <td className="border border-gray-300 px-4 py-2">{entry.month}</td>
+              <td className="border border-gray-300 px-4 py-2">{entry.amount}</td>
+              <td className="border border-gray-300 px-4 py-2">{entry.receiptNo}</td>
+              <td className="border border-gray-300 text-center px-4 py-2">
+                {entry.parentVerified ? Verified :Pending}
+              </td>
+              <td className="border border-gray-300 text-center px-4 py-2">
+                {entry.swadarVerified ? Verified : Pending}
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="6" className="border border-gray-300 px-4 py-2 text-center">No records found</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
            <div className="flex justify-center">
            <button onClick={() => setModalIsOpen(true)} className="mt-4  w-2/4 h-8 bg-blue-500 text-white rounded">
               Add New Fee

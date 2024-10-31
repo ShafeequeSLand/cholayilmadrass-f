@@ -72,6 +72,13 @@ function FeesTable() {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+  };
+  
+
   return (
     <>
       {userInfo && <Header />}
@@ -87,45 +94,44 @@ function FeesTable() {
             <h2 className="mt-6 text-3xl font-bold text-gray-900">Records Table</h2>
           </div>
           <div className="mt-8 overflow-x-auto">
-            <table className="min-w-full bg-white border mb-10 border-gray-300">
-              <thead>
-                <tr>
-                  <th className="border border-gray-300 px-1 py-1">Date</th>
-                  <th className="border border-gray-300 px-1 py-1">Month</th>
-                  <th className="border border-gray-300 px-1 py-1">Amount</th>
-                  <th className="border border-gray-300 px-1 py-1">Rec.No	</th>
-                  <th className="border border-gray-300 px-1 py-1">Parent Verified</th>
-                  <th className="border border-gray-300 px-1 py-1">Swadar Verified</th>
-                </tr>
-              </thead>
-              <tbody>
-                {entries.length > 0 ? (
-                  entries.map((entry, index) => (
-                    <tr key={entry._id || index} className="hover:bg-gray-100 text-center">
-                      <td className="border border-gray-300 px-4 py-2">{entry.date}</td>
-                      <td className="border border-gray-300 px-4 py-2">{entry.month}</td>
-                      <td className="border border-gray-300 px-4 py-2">{entry.amount}</td>
-                      <td className="border border-gray-300 px-4 py-2">{entry.receiptNo}</td>
-                      <td className="border border-gray-300 text-center px-4 py-2">
-                        {entry.parentVerified ? (
-                          Verified
-                        ) : (
-                          <div className="" onClick={() => handleVerify(entry._id)}>{Pending}</div>
-                        )}
-                      </td>
-                      <td className="border border-gray-300 text-center px-4 py-2">
-                        {entry.swadarVerified ? Verified : Pending}
-                      </td>
-
-                    </tr>
-                  ))
+          <table className="min-w-full bg-white border mb-10 border-gray-300">
+      <thead>
+        <tr>
+          <th className="border border-gray-300 w-1/6 px-1 py-1">Date</th>
+          <th className="border border-gray-300 w-1/6 px-1 py-1">Month</th>
+          <th className="border border-gray-300 w-1/6 px-1 py-1">Amount</th>
+          <th className="border border-gray-300 w-1/6 px-1 py-1">Rec.No</th>
+          <th className="border border-gray-300 w-1/6 px-1 py-1">Parent Verified</th>
+          <th className="border border-gray-300 w-1/6 px-1 py-1">Swadar Verified</th>
+        </tr>
+      </thead>
+      <tbody>
+        {entries.length > 0 ? (
+          entries.map((entry, index) => (
+            <tr key={entry._id || index} className="hover:bg-gray-100 text-center">
+              <td className="border border-gray-300 px-4 py-2">{formatDate(entry.date)}</td>
+              <td className="border border-gray-300 px-4 py-2">{entry.month}</td>
+              <td className="border border-gray-300 px-4 py-2">{entry.amount}</td>
+              <td className="border border-gray-300 px-4 py-2">{entry.receiptNo}</td>
+              <td className="border border-gray-300 text-center px-4 py-2">
+                {entry.parentVerified ? (
+                  <span>{Verified}</span>
                 ) : (
-                  <tr>
-                    <td colSpan="6" className="border border-gray-300 px-4 py-2 text-center">No records found</td>
-                  </tr>
+                  <div onClick={() => handleVerify(entry._id)} className="cursor-pointer">{Pending}</div>
                 )}
-              </tbody>
-            </table>
+              </td>
+              <td className="border border-gray-300 text-center px-4 py-2">
+                {entry.swadarVerified ? Verified : Pending}
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="6" className="border border-gray-300 px-4 py-2 text-center">No records found</td>
+          </tr>
+        )}
+      </tbody>
+    </table>
           </div>
         </div>
       </div>
