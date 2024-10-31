@@ -77,14 +77,14 @@ function Dashboard() {
             <div className="w-full max-w-7xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
               <header className="px-5 py-4 border-b justify-items-center border-gray-100 flex justify-between">
                 <div>
-                  <h2 className="font-semibold text-gray-800">Customers</h2>
+                  <h2 className="font-semibold text-gray-800">Student List</h2>
                 </div>
                 <div>
                   <Link
                     to={"/admin/adduser"}
                     className="px-5 py-2.5 font-medium bg-blue-50 hover:bg-blue-100 hover:text-blue-600 text-blue-500 rounded-lg text-sm"
                   >
-                    Add User
+                    Add Student
                   </Link>
                 </div>
               </header>

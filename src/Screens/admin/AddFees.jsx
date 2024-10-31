@@ -140,7 +140,7 @@ function AddFees() {
               </tbody>
             </table>
            <div className="flex justify-center">
-           <button onClick={() => setModalIsOpen(true)} className="mt-4 p-2 bg-blue-500 text-white rounded">
+           <button onClick={() => setModalIsOpen(true)} className="mt-4  w-2/4 h-8 bg-blue-500 text-white rounded">
               Add New Fee
             </button>
            </div>
@@ -154,7 +154,9 @@ function AddFees() {
   onRequestClose={() => setModalIsOpen(false)}
   className="relative w-full max-w-md border mt-20 mx-auto bg-white rounded-lg shadow-lg p-6 md:max-w-lg"
 >
-  <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">Add New Fee</h2>
+<div>
+<div className="text-2xl font-semibold text-center text-gray-800 mb-4">Add New Fee</div>
+</div>
   <form onSubmit={handleSubmit} className="space-y-4">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="flex flex-col">
@@ -227,6 +229,7 @@ function AddFees() {
         <label htmlFor="swadarVerified" className="text-sm font-medium text-gray-600">Swadar Verified:</label>
         <input
           type="checkbox"
+          required
           name="swadarVerified"
           checked={newFee.swadarVerified}
           onChange={handleInputChange}
