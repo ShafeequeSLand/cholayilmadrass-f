@@ -144,10 +144,10 @@ function AddFees() {
               <td className="border border-gray-300 px-4 py-2">{entry.month}</td>
               <td className="border border-gray-300 px-4 py-2">{entry.amount}</td>
               <td className="border border-gray-300 px-4 py-2">{entry.receiptNo}</td>
-              <td className="border border-gray-300 text-center px-4 py-2">
+              <td className="border border-gray-300 text-center">
                 {entry.parentVerified ? Verified :Pending}
               </td>
-              <td className="border border-gray-300 text-center px-4 py-2">
+              <td className="border border-gray-300 text-center ">
                 {entry.swadarVerified ? Verified : Pending}
               </td>
             </tr>

@@ -120,14 +120,14 @@ function FeesTable() {
                   <div onClick={() => handleVerify(entry._id)} className="cursor-pointer">{Pending}</div>
                 )}
               </td>
-              <td className="border border-gray-300 text-center px-4 py-2">
+              <td className="border border-gray-300 text-center">
                 {entry.swadarVerified ? Verified : Pending}
               </td>
             </tr>
           ))
         ) : (
           <tr>
-            <td colSpan="6" className="border border-gray-300 px-4 py-2 text-center">No records found</td>
+            <td colSpan="6" className="border border-gray-300  text-center">No records found</td>
           </tr>
         )}
       </tbody>
