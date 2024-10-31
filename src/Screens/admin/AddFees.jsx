@@ -12,6 +12,7 @@ function AddFees() {
   const { state } = useLocation();
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [submitloading, setSubmitLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [id, setId] = useState(state?.item || ''); // Set initial value from state
   const [newFee, setNewFee] = useState({
@@ -74,6 +75,7 @@ function AddFees() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitLoading(true)
     if (!validateForm()) return; // Only proceed if validation passes
     try {
       const response = await addFees(newFee).unwrap();
@@ -88,6 +90,7 @@ function AddFees() {
         parentVerified: false,
         swadarVerified: false
       });
+      setSubmitLoading(false)
     } catch (error) {
       console.error("Error adding new fee:", error);
     }
@@ -145,96 +148,105 @@ function AddFees() {
 )}
       {/* Modal for adding new fee */}
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        className="relative w-full max-w-md border mt-20 mx-auto bg-white rounded-lg shadow-lg p-6 md:max-w-lg"
-      >
-        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">Add New Fee</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-600">Date:</label>
-              <input
-                type="date"
-                name="date"
-                value={newFee.date}
-                onChange={handleInputChange}
-                required
-                className="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              />
-              {errors.date && <span className="text-red-500 text-sm">{errors.date}</span>}
-            </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-600">Month:</label>
-              <input
-                type="text"
-                name="month"
-                value={newFee.month}
-                onChange={handleInputChange}
-                required
-                className="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-              />
-              {errors.month && <span className="text-red-500 text-sm">{errors.month}</span>}
-            </div>
-          </div>
+  isOpen={modalIsOpen}
+  onRequestClose={() => setModalIsOpen(false)}
+  className="relative w-full max-w-md border mt-20 mx-auto bg-white rounded-lg shadow-lg p-6 md:max-w-lg"
+>
+  <h2 className="text-2xl font-semibold text-center text-gray-800 mb-4">Add New Fee</h2>
+  <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="flex flex-col">
+        <label className="text-sm font-medium text-gray-600">Date:</label>
+        <input
+          type="date"
+          name="date"
+          value={newFee.date}
+          onChange={handleInputChange}
+          required
+          className="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+        />
+        {errors.date && <span className="text-red-500 text-sm">{errors.date}</span>}
+      </div>
+      <div className="flex flex-col">
+        <label className="text-sm font-medium text-gray-600">Month:</label>
+        <select
+          name="month"
+          value={newFee.month}
+          onChange={handleInputChange}
+          required
+          className="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+        >
+          <option value="">Select Month</option>
+          <option value="January">January</option>
+          <option value="February">February</option>
+          <option value="March">March</option>
+          <option value="April">April</option>
+          <option value="May">May</option>
+          <option value="June">June</option>
+          <option value="July">July</option>
+          <option value="August">August</option>
+          <option value="September">September</option>
+          <option value="October">October</option>
+          <option value="November">November</option>
+          <option value="December">December</option>
+        </select>
+        {errors.month && <span className="text-red-500 text-sm">{errors.month}</span>}
+      </div>
+    </div>
 
-          <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-600">Amount:</label>
-            <input
-              type="number"
-              name="amount"
-              value={newFee.amount}
-              onChange={handleInputChange}
-              required
-              className="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            />
-            {errors.amount && <span className="text-red-500 text-sm">{errors.amount}</span>}
-          </div>
+    <div className="flex flex-col">
+      <label className="text-sm font-medium text-gray-600">Amount:</label>
+      <input
+        type="number"
+        name="amount"
+        value={newFee.amount}
+        onChange={handleInputChange}
+        required
+        className="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+      />
+      {errors.amount && <span className="text-red-500 text-sm">{errors.amount}</span>}
+    </div>
 
-          <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-600">Receipt No:</label>
-            <input
-              type="text"
-              name="receiptNo"
-              value={newFee.receiptNo || ""}
-              onChange={handleInputChange}
-              required
-              className="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-            />
-            {errors.receiptNo && <span className="text-red-500 text-sm">{errors.receiptNo}</span>}
-          </div>
+    <div className="flex flex-col">
+      <label className="text-sm font-medium text-gray-600">Receipt No:</label>
+      <input
+        type="number"
+        name="receiptNo"
+        value={newFee.receiptNo || ""}
+        onChange={handleInputChange}
+        required
+        className="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+      />
+      {errors.receiptNo && <span className="text-red-500 text-sm">{errors.receiptNo}</span>}
+    </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="flex items-center space-x-2">
-              <label htmlFor="parentVerified" className="text-sm font-medium text-gray-600">Parent Verified:</label>
-              <input
-                type="checkbox"
-                name="parentVerified"
-                checked={newFee.parentVerified}
-                onChange={handleInputChange}
-                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
-              />
-            </div>
+    <div className="grid grid-cols-2 gap-4">
+      <div className="flex items-center space-x-2">
+        <label htmlFor="swadarVerified" className="text-sm font-medium text-gray-600">Swadar Verified:</label>
+        <input
+          type="checkbox"
+          name="swadarVerified"
+          checked={newFee.swadarVerified}
+          onChange={handleInputChange}
+          className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
+        />
+      </div>
+    </div>
 
-            <div className="flex items-center space-x-2">
-              <label htmlFor="swadarVerified" className="text-sm font-medium text-gray-600">Swadar Verified:</label>
-              <input
-                type="checkbox"
-                name="swadarVerified"
-                checked={newFee.swadarVerified}
-                onChange={handleInputChange}
-                className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300"
-              />
-            </div>
-          </div>
+    <div className="text-center">
+      {!submitloading ? (
+        <button type="submit" className="mt-4 w-full p-2 bg-blue-500 text-white rounded">
+          Submit
+        </button>
+      ) : (
+        <div className="mt-4 w-full p-2 bg-blue-500 text-white rounded">
+          Loading...
+        </div>
+      )}
+    </div>
+  </form>
+</Modal>
 
-          <div className="text-center">
-            <button type="submit" className="mt-4 w-full p-2 bg-blue-500 text-white rounded">
-              Submit
-            </button>
-          </div>
-        </form>
-      </Modal>
     </>
   );
 }
