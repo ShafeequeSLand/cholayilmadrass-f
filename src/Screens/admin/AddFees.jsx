@@ -103,7 +103,7 @@ function AddFees() {
         <div className="w-[100vw] h-[100vh] flex justify-center items-center  ">
           <BarLoader />
         </div>):(
-      <div className="overflow-hidden flex items-start justify-center h-[100vh]" style={{ background: "#edf2f7" }}>
+      <div className="overflow-hidden flex items-start justify-center min-h-[100vh]" style={{ background: "#edf2f7" }}>
         <div className="max-w-5xl w-full mt-10 mb-10 p-5 bg-white rounded-xl">
           <div className="text-center">
             <h2 className="mt-6 text-3xl font-bold text-gray-900">Records Table</h2>
@@ -139,9 +139,11 @@ function AddFees() {
                 )}
               </tbody>
             </table>
-            <button onClick={() => setModalIsOpen(true)} className="mt-4 p-2 bg-blue-500 text-white rounded">
+           <div className="flex justify-center">
+           <button onClick={() => setModalIsOpen(true)} className="mt-4 p-2 bg-blue-500 text-white rounded">
               Add New Fee
             </button>
+           </div>
           </div>
         </div>
       </div>
