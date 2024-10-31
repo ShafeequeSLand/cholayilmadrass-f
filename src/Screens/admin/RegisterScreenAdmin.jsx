@@ -88,7 +88,7 @@ function RegisterScreenAdmin() {
     try {
 
       const res = await register(formData).unwrap();
-      dispatch(setCredentials({ ...res }));
+     
       toast.update(id, {
         render: "Registration successful!",
         type: "success",

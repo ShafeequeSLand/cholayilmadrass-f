@@ -25,7 +25,7 @@ function AddFees() {
     swadarVerified: false
   });
   const [errors, setErrors] = useState({});
-  const { userInfo } = useSelector((state) => state.auth);
+  const { adminInfo } = useSelector((state) => state.auth);
 
   const Verified = <img className="h-auto w-24" src="/verified.png" alt="" />;
   const Pending = <img className="h-auto w-24" src="/pending.png" alt="" />;
@@ -109,7 +109,7 @@ function AddFees() {
 
   return (
     <>
-      {userInfo && <Header />}
+      {adminInfo && <Header />}
       {loading ?(
         <div className="w-[100vw] h-[100vh] flex justify-center items-center  ">
           <BarLoader />

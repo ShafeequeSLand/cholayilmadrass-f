@@ -145,14 +145,14 @@ console.log(dateofBirth);
               </button>
             </div>
           </form>
-          <p className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
+          {/* <p className="flex flex-col items-center justify-center mt-10 text-center text-md text-gray-500">
             <Link to="/signup">
               <span>Don't have an account?</span>
               <a className="text-indigo-500 hover:text-indigo-500no-underline hover:underline cursor-pointer transition ease-in duration-300">
                 Sign up
               </a>
             </Link>
-          </p>
+          </p> */}
         </div>
       </div>
     </>
