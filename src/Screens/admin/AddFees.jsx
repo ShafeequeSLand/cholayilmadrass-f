@@ -38,22 +38,33 @@ function AddFees() {
     setId(state?.item);
     if (id) {
       async function getFees() {
-        setLoading(true)
+        setLoading(true);
         try {
           const res = await getFeesData(id).unwrap();
-          setEntries(res.data.feesData);
-          setNewFee((prev) => ({
-            ...prev,
-            id: id,
-          }));
-          setLoading(false)
+          if (res.data) {
+          
+            if (res.data.feesData && res.data.feesData.length > 0) {
+              setEntries(res.data.feesData);
+            } else {
+              // Handle empty data array
+              setEntries([]); // or set an error message state here
+              console.log("No fees data available.");
+            }
+            setNewFee((prev) => ({
+              ...prev,
+              id: id,
+            }));
+          }
+          setLoading(false);
         } catch (error) {
           console.error("Error fetching fees data:", error);
+          setLoading(false);
         }
       }
       getFees();
     }
   }, [id, getFeesData]);
+  
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;

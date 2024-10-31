@@ -18,21 +18,32 @@ function FeesTable() {
 
   useEffect(() => {
     const fetchFeesData = async () => {
-      setLoading(true)
-      if (!userInfo) return;
-
+      if (!userInfo) {
+        setLoading(false);
+        return;
+      }
+  
+      setLoading(true);
+      
       try {
         const res = await getFeesdata(userInfo._id).unwrap();
-        setEntries(res?.data?.feesData || []);
-        setLoading(false)
+  
+        if (res?.data?.feesData?.length > 0) {
+          setEntries(res.data.feesData);
+        } else {
+          setEntries([]); // Handle case when feesData is empty or res.data is falsy
+        }
+        
+        setLoading(false);
       } catch (error) {
         console.error("Failed to fetch fees data:", error);
+        setLoading(false); // Ensure loading state is reset on error
       }
     };
-
+  
     fetchFeesData();
   }, [userInfo, getFeesdata]);
-
+  
   const handleVerify = async (id) => {
     const result = await Swal.fire({
       title: 'Are you sure?',
@@ -110,7 +121,7 @@ function FeesTable() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="border border-gray-300 px-4 py-2 text-center">No records found</td>
+                    <td colSpan="6" className="border border-gray-300 px-4 py-2 text-center">No records found</td>
                   </tr>
                 )}
               </tbody>
