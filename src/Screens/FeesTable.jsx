@@ -94,7 +94,7 @@ function FeesTable() {
             <h2 className="mt-6 text-3xl font-bold text-gray-900">Records Table</h2>
           </div>
           <div className="mt-8 overflow-x-auto">
-          <table className="min-w-full bg-white border mb-10 border-gray-300">
+          <table className="min-w-[120vh] bg-white border mb-10 border-gray-300">
       <thead>
         <tr>
           <th className="border border-gray-300 w-1/6 px-1 py-1">Date</th>
