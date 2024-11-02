@@ -21,12 +21,12 @@ console.log(dateofBirth);
 
   const { userInfo } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (userInfo) {
-      toast.success("Login successfully");
-      navigate("/");
-    }
-  }, [navigate, userInfo]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     toast.success("Login successfully");
+  //     navigate("/");
+  //   }
+  // }, [ userInfo]);
 
   const handleChangeUsername = (e) => {
     const usernameValue = e.target.value;
@@ -61,7 +61,7 @@ console.log(dateofBirth);
           render: "Login successful!",
           type: "success",
           isLoading: false,
-          autoClose: 3000, // Close the toast after 3 seconds
+          autoClose: 2000, // Close the toast after 3 seconds
         });
 
         // Navigate to the home page
@@ -73,7 +73,7 @@ console.log(dateofBirth);
         render: err?.data?.message || err.error,
         type: "error",
         isLoading: false,
-        autoClose: 3000, // Close the toast after 5 seconds
+        autoClose: 2000, // Close the toast after 5 seconds
       });
 
       // Optionally, you can log the error to the console
