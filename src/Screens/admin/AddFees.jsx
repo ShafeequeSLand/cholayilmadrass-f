@@ -94,6 +94,7 @@ function AddFees() {
       setEntries((prev) => [...prev, newFee]);
       setModalIsOpen(false);
       setNewFee({
+        id: id,
         date: "",
         month: "",
         amount: "",
