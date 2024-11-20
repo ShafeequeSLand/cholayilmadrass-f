@@ -19,12 +19,6 @@ function LoginScreeAdmin() {
 
   const { adminInfo } = useSelector((state) => state.adminAuth);
 
-  useEffect(() => {
-    if (adminInfo) {
-      toast.success("Login successfully");
-      navigate("/admin/dashboard");
-    }
-  }, [navigate, adminInfo]);
 
   const handleChangeEmail = (e) => {
     const emailValue = e.target.value;
