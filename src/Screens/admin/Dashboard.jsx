@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { BarLoader } from "react-spinners";
 AdminHeader;
 import {
   useGetUsersMutation,
@@ -18,10 +19,14 @@ import Swal from "sweetalert2";
 
 import { Link, useNavigate } from "react-router-dom";
 import AdminHeader from "../../components/AdminHeader";
+
+
 function Dashboard() {
   const { page, lastPage, result, searchKey } = useSelector(
     (state) => state.searchUsers
   );
+
+  const [loading, setLoading] = useState(false);
   const { adminInfo } = useSelector((state) => state.adminAuth);
   const [deleteUser] = useDeleteUserMutation();
   const [getUsers, { isLoading }] = useGetUsersMutation();
@@ -31,9 +36,28 @@ function Dashboard() {
   useEffect(() => {
     const getUsersData = async () => {
       try {
+        setLoading(true)
         const res = await getUsers({ page: page, key: searchKey }).unwrap();
 
         dispatch(setSearchResult({ ...res }));
+        setLoading(false)
+      } catch (err) {
+        toast.error(err?.data?.message || err?.error);
+        console.log(err?.data?.message || err?.error);
+      }
+    };
+    getUsersData();
+  }, [isLoading]);
+
+
+  useEffect(() => {
+    const getUsersData = async () => {
+      try {
+        
+        const res = await getUsers({ page: page, key: searchKey }).unwrap();
+
+        dispatch(setSearchResult({ ...res }));
+
       } catch (err) {
         toast.error(err?.data?.message || err?.error);
         console.log(err?.data?.message || err?.error);
@@ -55,11 +79,14 @@ function Dashboard() {
 
     if (responce.isConfirmed) {
       try {
-        const res = await deleteUser({ id });
+        const res = await deleteUser({id} );
+        if(res) {
         const newUsers = result.filter((item) => item._id != id);
+      
         dispatch(setUpdatedUser([...newUsers]));
         console.log(newUsers, id);
         toast.success("User deleted successfully");
+      }
       } catch (error) {
         console.error(error);
         console.error(error);
@@ -70,6 +97,11 @@ function Dashboard() {
 
   return (
     <>
+      {loading ?(
+        <div className="w-[100vw] h-[100vh] flex justify-center items-center  ">
+          <BarLoader />
+        </div>):(
+          <>
       {adminInfo && <AdminHeader />}
       <section className="antialiased bg-gray-100 text-gray-600 h-screen px-4">
         <div className="flex flex-col justify-center h-full">
@@ -252,6 +284,8 @@ function Dashboard() {
           </div>
         </div>
       </section>
+      </> 
+     )}
     </>
   );
 }
