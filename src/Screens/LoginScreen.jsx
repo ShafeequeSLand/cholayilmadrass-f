@@ -9,9 +9,11 @@ import Loader from "../components/Loader";
 import { nameValidate, isDateValid } from "../utilities/validationForm";
 
 function LoginScreen() {
+
   const [username, setUsername] = useState("");
   const [dateofBirth, setDateofBirth] = useState("");
 console.log(dateofBirth);
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

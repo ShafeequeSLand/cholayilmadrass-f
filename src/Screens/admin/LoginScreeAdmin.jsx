@@ -11,6 +11,7 @@ function LoginScreeAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const emailRef = useRef(null);
@@ -35,14 +36,17 @@ function LoginScreeAdmin() {
         isEmailValid(email, setEmail, emailRef) &&
         isPasswordValid(password, setPassword, passwordRef)
       ) {
+        setLoading(true)
         const res = await adminLogin({ email, password }).unwrap();
-
+        
         dispatch(setCredentials({ ...res }));
-        console.log(res, "res");
+    
+        setLoading(false)
         toast.success("Login successfully");
         navigate("/admin/dashboard");
       }
     } catch (err) {
+      setLoading(false)
       toast.error(err?.data?.message || err.error);
     }
   };
@@ -102,13 +106,19 @@ function LoginScreeAdmin() {
             </div>
 
             <div>
-              {isLoading && <Loader />}
+              {!loading?
               <button
                 type="submit"
                 className="w-full flex justify-center mb-4 bg-indigo-500 text-gray-100 p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg cursor-pointer transition ease-in duration-300"
               >
                 Login in
-              </button>
+              </button>: <button
+                type="submit"
+                className="w-full flex justify-center mb-4 bg-indigo-500 text-gray-100 p-4 rounded-full tracking-wide font-semibold focus:outline-none focus:shadow-outline hover:bg-indigo-600 shadow-lg cursor-pointer transition ease-in duration-300"
+              >
+                Loading 
+             </button>
+              }
             </div>
           </form>
         </div>
